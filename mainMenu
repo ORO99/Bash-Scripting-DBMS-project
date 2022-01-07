@@ -1,0 +1,78 @@
+#! /usr/bin/bash
+
+select menuItem in "Create Database" "List Databases" "Connect to Database" "Drop Database" "Exit"
+do
+	case $menuItem in
+		"Create Database" )
+			 read -p "enter DB name: " DBName
+			 cd Databases
+			 while [ -d $DBName ]
+			 do 
+			 	read -p "Error!!...This database already exists, try a different name: " DBName
+			 done
+			 case $DBName in
+				(+([[:upper:][:digit:][:lower:]]) )
+					((validName=1))
+						;;
+				* )
+					((validName=2))
+						;;
+			 esac
+			 while ((validName==2))
+			 do
+				read -p "Invalid table Name, proper name can only include letters and numbers, try again: " DBName
+				case $DBName in
+				(+([[:upper:][:digit:][:lower:]]) )
+					((validName=1))
+						;;
+				* )
+					((validName=2))
+						;;
+				esac
+			 done
+ 			 mkdir $DBName
+			 cd ..
+			 echo "DB $DBName Created Successfully"
+			 
+			 	;;
+
+		"List Databases" )
+			 ls Databases
+				;;
+
+		"Connect to Database" )
+
+			 cd Databases
+			 ls -d *
+			 read -p "enter DB name that you wish to use: " DBName 
+			 while [ ! -d $DBName ]
+			 do 
+			 	read -p "Error!!...This database doesn't exist, try again: " DBName
+			 done
+			 cd $DBName
+			 . /home/omar/DBMS/.tableMenu
+				;;
+
+		"Drop Database" )
+			 cd Databases
+			 ls -d *
+			 read -p "Enter DataBase Name that you wish to drop from the list: " DBName
+			 if [ -d $DBName ]
+			 then
+			 	rm -r $DBName
+				echo "$DBName has been deleted successfully!"
+			 else
+			 	echo "$DBName doesn't exist"
+			 fi
+			 cd ..
+				;;
+
+		"Exit" )
+			 echo "sad to see you go :( "
+		     break
+				;;
+
+		* ) echo "ERROR!!!!! ...PLEASE ENTER A CORRECT OPTION! :"
+				;;
+	esac
+done

@@ -1,0 +1,92 @@
+#! /bin/bash
+
+function checkFieldType()
+{
+	((x=3))
+	while [ $x -ne 0 ]
+	do
+		case $TBData in
+		
+			"Null" ) ((x=0))
+                	;;
+
+            +([0-9]) )
+				((x=1)) #column type is int
+				if [ `cut -d' ' -f$i .$TBName.h` -eq $x ]
+				then
+					((x=0))
+				else
+					#read -p "ERROR! ... COLUMN ($i) EXPECTS A STRING: " TBData
+                    #arr[$i]=$TBData
+					((x=0))
+				fi
+				    ;;
+
+			* )
+				((x=2)) #column type is string
+				if [ `cut -d' ' -f$i .$TBName.h` -eq $x ]
+                then
+					((x=0))
+                else
+                    read -p "ERROR! ... COLUMN ($i) EXPECTS AN INT: " TBData
+                    arr[$i]=$TBData
+                    ((x=3))
+                fi
+					;;
+		esac
+	done
+}
+#initializing all array values with null
+for ((i=1; i<=$columns; i++))
+do
+    arr[$i]=Null
+done
+
+#checking column boundaries
+((h=0))
+for item in $@
+do
+	((h++))
+    while (($item > $columns || $item < 1))
+    do
+        read -p "($item) is an invalid column number, try again: " item
+    done
+	headers[$h]=$item
+done
+#checking field type -->
+for i in ${headers[@]}
+do
+	if ((i==1))
+	then
+		read -p "Enter value for primary key column: " arr[$i]
+		TBData=${arr[$i]}
+		checkFieldType
+		while [ true ]
+		do
+			s=`awk -v d="$TBData" -F' ' '{if(d == $1) {print "68"}}' $TBName| wc -w`
+			if((s >= 1))
+			then
+				read -p  "ERROR!! ..... PRIMARY KEY ALREADY EXISTS!!... try again: " TBData
+				#TBData=${arr[$i]}
+			else
+				break
+			fi
+		done
+		arr[$i]=$TBData
+
+	else
+		read -p "Enter value for column ($i): " arr[$i]
+    	TBData=${arr[$i]}
+	fi
+    checkFieldType
+done
+
+
+#creating the new line in table
+for item in ${arr[@]}
+do
+    echo -n "$item    " >> $TBName
+done
+echo -e "\n" >> $TBName
+sed -i '/^$/d' $TBName
+echo "Insertion successful"

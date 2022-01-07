@@ -1,0 +1,72 @@
+Created By Omar Hussien Mahmoud & Youssef ABdelnasser
+Date: 7/1/2022
+
+
+use this project to create interactive databases and store data and table
+you also have the ability to update, delete, insert or display your data accordingly
+
+place this directory and all its components inside your home directory
+to start the project go to your terminal and type this command
+. mainMenu
+
+follow the insturctions on the screen carefully, use the numbers of list items to navigate
+through the app
+
+#main menu
+this menu allows access to
+
+1) create a database
+	make sure to give every database a unique name and only use letters & numbers in naming to avoid errors
+2) list databases
+	use this option to view the names of all databases currently stored in your system
+3) connect to database
+	use this option to connect to an existing database
+4) Drop database
+	use this option to delete an existing database (make sure to type the name correctly from the list displayed)
+5) exit
+	use this option to close the application
+#Table menu
+
+1) Create table
+	use this option to create tables to store your data, make sure to follow the same naming convention mentioned above
+	for both table names and column names, enter the number 1 to specify an INT data type for column or the number 2 to 
+	specify a string data type for column
+2) list Tables
+	use this option to view the names of all tables currently stored in your current database
+3) Drop table
+	use this option to delete an existing table in your current database (make sure to type the name correctly from the list displayed)
+4) Insert into table
+	use this option to insert records into your existing tables ie: table must exist before inserting records into it
+	first, you need to specify which column to insert into,
+	input a number representing how many columns you want to insert into n where ( 1 < n < total number of columns)
+	next you need to input the numbers of the columns you want to insert into in a string separated by spaces
+	make sure you don't put any special characters or letters in this string, make sure to specify (1) your primary key
+	column in your input string
+	following that you should start inserting data in your columns one by one as the prompt asks for it
+	remember to take column data type into consideration and that primary key (column1) doesn't accept duplicate values
+5) Select from table
+	use this option to display data in specific ways from your table
+		1) this option displays the entire table
+		2) this option allows user to input specifc column numbers to display, make sure to follow the same convention mentioned above
+		   in insert option
+		3) this option allows the user to search for a specific key word in the table and display all records including that word
+		   in a specific column of your choosing
+		4) use this option to display the sum of a specific column, make sure this column is of the dataType (int)
+		5) use this option to display the count of a specific column, make sure this column is of the dataType (int)
+		6) use this option to display the average of a specific column, make sure this column is of the dataType (int)
+		7) use this option to go back to the previous menu and exit select utility
+6) Delete from table
+	use this option to delete not wanted records from your table, the prompt asks for a key word to delete, and goes on to delete
+	every single record including this key word in your entire table, be careful using this utility since this app doesn't offer a 
+	rollback feature
+7) Update table
+	use this option to update specific records or multiple records sharing the same key word in a specific column, you need to enter
+	a key word and a column for the search engine to look for that key word in, then input the new value you want to update to, make
+	sure to take data type of column into consideration and to make sure you never input duplicate data into primary key column
+	note: this feature will update all records including the specified key word in the specified column to the new value so be careful
+	using it since this app doesn't offer a rollback feature
+8) exit
+	use this option to exit this menu and back to the main menu
+	
+		
+	 
